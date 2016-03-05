@@ -1,0 +1,31 @@
+{
+  "name": "GottaCatchemoji",
+  "version": "1.0.0",
+  "description": "Gotta catch all the android emojis!",
+  "keywords": [
+    "emoji",
+    "instagram",
+    "gottacacthemoji"
+  ],
+  "author": {
+    "name": "Enric Masdeu",
+    "email": "enric.masdeu@gmail.com",
+    "url": "http://www.emasdeu.com/"
+  },
+  "homepage": "http://www.emasdeu.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openshift/origin-server"
+  },
+  "engines": {
+    "node": ">= 0.6.0",
+    "npm": ">= 1.0.0"
+  },
+  "dependencies": {
+    "dbox": "^0.6.4",
+    "express": "~3.4.4"
+  },
+  "devDependencies": {},
+  "bundleDependencies": [],
+  "main": "server.js"
+}
