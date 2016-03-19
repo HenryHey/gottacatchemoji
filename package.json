@@ -23,7 +23,8 @@
   },
   "dependencies": {
     "dbox": "^0.6.4",
-    "express": "~3.4.4"
+    "express": "~3.4.4",
+    "request": "~2.69"
   },
   "devDependencies": {},
   "bundleDependencies": [],

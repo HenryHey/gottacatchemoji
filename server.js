@@ -117,6 +117,12 @@ var SampleApp = function() {
 					res.send(fs.readFileSync('./static/' + req.params.folder + '/' + req.params.file));
 				};
 
+				self.routes['/catchemoji/static/img/downloaded/:file'] = function(req, res) {
+					console.log('./static/img/downloaded/' + req.params.file);
+				  res.setHeader('Content-Type', 'image/jpeg');
+					res.send(fs.readFileSync('./static/img/downloaded/' + req.params.file));
+				};
+
 				self.routes['/static/:folder/:file'] = function(req, res) {
 					console.log('./static/' + req.params.folder + '/' + req.params.file);
 					if (req.params.file.indexOf(".css") !== -1) {
