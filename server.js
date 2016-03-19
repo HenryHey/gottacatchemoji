@@ -117,6 +117,16 @@ var SampleApp = function() {
 					res.send(fs.readFileSync('./static/' + req.params.folder + '/' + req.params.file));
 				};
 
+				self.routes['/static/:folder/:file'] = function(req, res) {
+					console.log('./static/' + req.params.folder + '/' + req.params.file);
+					if (req.params.file.indexOf(".css") !== -1) {
+						res.setHeader('Content-Type', 'text/css');
+					}	else if (req.params.file.indexOf(".js") !== -1) {
+						res.setHeader('Content-Type', 'application/javascript');
+					}	
+					res.send(fs.readFileSync('./static/' + req.params.folder + '/' + req.params.file));
+				};
+
 				self.routes['/catchemoji/static/css/:file'] = function(req, res) {
 					console.log('./static/css/' + req.params.file);
           res.setHeader('Content-Type', 'text/css');

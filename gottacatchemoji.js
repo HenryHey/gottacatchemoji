@@ -1,5 +1,18 @@
 var dbox  = require("dbox");
 var fs = require("fs");
+var request = require('request');
+
+var download = function(uri, filename, callback){
+  request.head(uri, function(err, res, body){
+    console.log('Downloading ' + filename + '...');
+    console.log('content-type:', res.headers['content-type']);
+    console.log('content-length:', res.headers['content-length']);
+
+    request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+  });
+};
+
+
 
 var secret = fs.readFileSync("secret.json", "utf8");
 
@@ -32,8 +45,20 @@ var header = "<html><head>" +
 var footer = "</div></body>" +
   "</html>";
 
-var downloadImage = function (fileName) {
-  return true;
+var getImageUrl = function (imageUrl) {
+  
+  var fileName = imageUrl.substring(14, imageUrl.length);
+  var path = "./static/img/downloaded/" + fileName + ".jpeg";
+  try {
+    fs.accessSync(path, fs.F_OK);
+    console.log(path + " exists");
+    return path;
+  } catch (e) {
+    download(imageUrl , path, function(){
+      console.log(imageUrl + ' downloaded');
+    });
+    return imageUrl;
+  }  
 }
 
 module.exports = {
@@ -49,9 +74,8 @@ module.exports = {
 			var lines = reply.toString().split('\n');
 			for (i=lines.length-1; i>=0; i--) {
 				var imageUrl = lines[i].toString().split('-')[0].trim();
-        var fileName = imageUrl.substring(14, imageUrl.length);
-        console.log(fileName);
-        downloadImage(fileName);
+        imageUrl = getImageUrl(imageUrl);
+
 				var emoji = lines[i].toString().split('-')[1].split('#')[0].trim();
 				var emoDiv = "emo" + i;
 				result += '<li><div class="col s3"><div class="card"><div class="card-image"><img class="pic" src="' + imageUrl + '" width="160px">';
